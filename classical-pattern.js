@@ -1,29 +1,30 @@
-function Person(first, last, age, gender) {
-  this.firstName = first;
-  this.lastName = last;
+// Implement using the Pseudo-Classical Approach
+function Person(firstName, lastName, age, gender) {
+  this.firstName = firstName;
+  this.lastName = lastName;
   this.age = age;
   this.gender = gender;
 }
 
 Person.prototype.fullName = function() {
-  return `${this.firstName} ${this.lastName}`
+  return [this.firstName, this.lastName].join(' ');
 }
 
-Person.prototype.eat = () => {
+Person.prototype.communicate = function() {
+  console.log('Blah blah blah');
+}
+
+Person.prototype.eat = function() {
   console.log('Eating');
 }
 
-Person.prototype.communicate = () => {
-  console.log('Communicating');
-}
-
-Person.prototype.sleep = () => {
+Person.prototype.sleep = function() {
   console.log('Sleeping');
 }
 
-function Doctor(first, last, age, gender, specialization) {
-  Person.call(this, first, last, age, gender, specialization);
-  this.specialization = specialization;
+function Doctor(firstName, lastName, age, gender, specialization) {
+  Person.call(this, firstName, lastName, age, gender);
+  this.specialization = specialization; 
 }
 
 Doctor.prototype = Object.create(Person.prototype);
@@ -32,9 +33,18 @@ Doctor.prototype.diagnose = function() {
   console.log('Diagnosing');
 }
 
-function Student(first, last, age, gender, degree) {
-  Person.call(this, first, last, age, gender);
+function Professor(firstName, lastName, age, gender, subject) {
+  Person.call(this, firstName, lastName, age, gender);
+  this.subject = subject;
+}
+
+function Student(firstName, lastName, age, gender, degree) {
+  Person.call(this, firstName, lastName, age, gender);
   this.degree = degree;
+}
+
+Student.prototype.study = function() {
+  console.log('Studying');
 }
 
 Student.prototype = Object.create(Person.prototype);
@@ -43,14 +53,13 @@ Student.prototype.study = function() {
   console.log('Studying');
 }
 
-function GraduateStudent(first, last, age, gender, degree, gradDegree) {
-  Student.call(this, first, last, age, gender, degree);
+function GraduateStudent(firstName, lastName, age, gender, gradDegree) {
+  Student.call(this, firstName, lastName, age, gender);
   this.graduateDegree = gradDegree;
 }
 
 GraduateStudent.prototype = Object.create(Student.prototype);
 GraduateStudent.prototype.constructor = GraduateStudent;
-
 GraduateStudent.prototype.research = function() {
   console.log('Researching');
 }
